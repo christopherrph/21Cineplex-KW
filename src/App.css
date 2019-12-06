@@ -36,3 +36,185 @@
     transform: rotate(360deg);
   }
 }
+
+.kasiborder{
+  border: 1px solid;
+}
+
+.sec1{
+  height: 86px;
+  background-color: #006563;
+  margin-top: 10px;
+}
+
+.header1{
+  margin-left: 130px;
+  height: 86px;
+}
+
+.searchbox{
+  background-color: #E6E7E8;
+  border-radius: 20px;
+  border: none;
+  height: 34px;
+  width: 349px;
+  padding-left: 15px;
+}
+
+.searchbox::placeholder {
+  font-style: italic;
+  font-size: 10pt;
+  opacity: 80%;
+}
+
+.searchbox:focus {
+  outline:none;
+}
+
+.sec2{
+  height: 65px;
+  background-color: #F4F4F4;
+}
+
+.menu{
+  margin-top: 20px;
+  margin-left: 50px;
+  font-size: 11pt;
+  color: #006563;
+  font-family: sans-serif;
+}
+
+.menu:hover{
+  color: #CFAB7A;
+  text-decoration: none;
+}
+
+.verticalline{
+  height: 40px;
+  margin-top: 10px;
+  position: relative;
+  left: 140px;
+}
+
+#pilihan21{
+  border-radius: 15px;
+  height: 130px;
+  width: 120px;
+  position: absolute;
+  left: 700px;
+  top: 250px;
+  background-color: #DCDBDB;
+  font-size: 10pt;
+  font-family: sans-serif;
+  padding: 12px;
+  display: none;
+}
+
+.menu21:hover{
+  color: #CFAB7A;
+  text-decoration: none;
+}
+
+#info21:hover ~ #pilihan21 {
+  display: block;
+}
+
+.carousel{
+  width: 950px;
+  height: 600px;
+  margin-left: 70px;
+}
+
+.nowplaying{
+  height: 30px;
+  width: 170px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #006563;
+  font-weight: 600;
+  color: white;
+  margin-right: 0;
+  padding-right: 0;
+  padding-top: 3px;
+}
+
+.kota{
+  height: 30px;
+  width: 170px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #E6E7E8;
+  font-weight: 600;
+  color: #006563;
+  margin-left: 0;
+  padding-left: 0;
+  text-decoration: none;
+  border: none;
+  
+}
+
+.kota-selected:after {
+  outline:none;
+}
+
+.poster{
+  margin-top: 90px;
+  margin-left: 60px ;
+  text-align: center;
+  width: 1280px;
+}
+
+.footer{
+  height: 173px;
+  background-color: #006563;
+}
+
+.footercont{
+  margin-top: 50px;
+  margin-left: 150px;
+  color: white;
+  font-weight: 300;
+}
+
+.footergaris{
+  padding-right:40px ;
+  border-right:1px solid white ;
+  color: white;
+}
+
+.footergaris:hover{
+  color: #CFAB7A;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.copyright{
+  margin-top: 20px;
+  margin-left: 150px;
+  color: #7dbcb8;
+  width: 980px;
+  font-size: 11px;
+}
+
+.loginform{
+  text-align: center;
+  width: 700px;
+  margin-left: 25%;
+}
+
+#inputan{
+  width: 500px;
+ }
+
+#inputan:focus{
+ width: 600px;
+ transition: 0.3s;
+}
+
+.registerhere{
+  color: black;
+}
+
+.registerhere:hover{
+  color: #006563;
+}
