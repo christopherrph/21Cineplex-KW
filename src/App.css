@@ -218,3 +218,24 @@
 .registerhere:hover{
   color: #006563;
 }
+
+.posterindv:hover{
+  opacity:0.5;
+  z-index:10;
+  transition: 0.3s;
+}
+
+.movidedetailposter{
+  height: 500px;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.moviedetails{
+  border: 1px solid;
+}
+
+.btn21{
+  background-color: #006563 !important;
+  color: white !important;
+}

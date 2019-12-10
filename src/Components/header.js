@@ -4,8 +4,9 @@ import '../App.css';
 import {connect} from 'react-redux' // Harus ada untuk akses global state
 import { TiArrowRightOutline } from "react-icons/ti";
 import { GiSpeaker, GiRoundStar } from "react-icons/gi";
-import { FaMapMarkedAlt } from "react-icons/fa";
+import { FaMapMarkedAlt, FaEdit } from "react-icons/fa";
 import { AiOutlineLogin } from "react-icons/ai";
+import { IoIosPerson } from "react-icons/io"
 import {logout} from '../Redux/Action'
 
 class Header extends Component {
@@ -45,10 +46,22 @@ class Header extends Component {
                 </div>
                 <div class='sec2'>
                     <div class='row'>
-                        <a href='' class='menu' style={{marginLeft:180}}><TiArrowRightOutline/> Now Playing</a>
+                    <Link to='/' style={{marginTop:17}}><a href='' class='menu' style={{marginLeft:180}}><TiArrowRightOutline/> Now Playing</a></Link>
                         <a href='' class='menu'><GiSpeaker/> Upcoming</a>
                         <a href='' class='menu'><FaMapMarkedAlt/> Theaters</a>
-                        <a href='' class='menu'><GiRoundStar/> Promotions</a>
+                        {
+                        this.props.role == 'admin'
+                        ?
+                        <div style={{marginTop:17}}>
+                        <a href='' class='menu' id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><FaEdit/> Movies</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style={{marginTop:10}}>
+                            <Link to='./addmovies'><a class="dropdown-item" href="#">Add Movies</a></Link>
+                            <Link to='/managemovies'><a class="dropdown-item" href="#">Edit Movies</a></Link>
+                        </div>
+                        </div>
+                        :
+                        ''
+                        }
                         {
                         this.props.nama
                         ?
@@ -59,7 +72,7 @@ class Header extends Component {
                         </Link>
                         }
                         <img class='verticalline' src='https://i.dlpng.com/static/png/2311890-straight-vertical-line-png-8-png-image-vertical-line-png-picture-2000_3938_preview.png'/>
-                        <div style={{marginLeft:140}}>
+                        <div style={{marginLeft:120}}>
                             <img class='menu' src='https://21cineplex.com//theme/v5/assets/img/imax-menu.png'/>
                             <img class='menu' src='https://21cineplex.com//theme/v5/assets/img/dolby-menu.png'/>
                             <img class='menu' src='https://21cineplex.com//theme/v5/assets/img/mtix-menu.png'/>
@@ -73,7 +86,8 @@ class Header extends Component {
 
 const mapStateProps = (state) =>{ // Function yang akan terima global state
     return{
-      nama: state.user.username //state.user(merujuk ke index.js reducer).username(masuk ke global state di authReducer)
+      nama: state.user.username, //state.user(merujuk ke index.js reducer).username(masuk ke global state di authReducer)
+      role: state.user.role
     }
 }
  

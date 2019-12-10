@@ -55,9 +55,8 @@ class login extends Component {
                     <input type="password" id="inputan" class="form-control" placeholder="Password" ref='password' required/>
                     </center>
                     <br/>
-                    <a>Dont have an account? <Link to='/register' className='registerhere'>register here</Link></a>
-                    <br/><br/>
-                    <button onClick={this.login} class="btn btn-lg btn-primary btn-block button21" style={{width:300, marginLeft:200, backgroundColor:'#006563', border:'none'}} type="submit">Sign in</button>
+                    <p>Dont have an account? <Link to='/register' className='registerhere'>register here</Link></p>
+                    <button onClick={this.login} class="btn btn-lg btn-primary btn-block btn21" style={{width:300, marginLeft:200, backgroundColor:'#006563', border:'none'}} type="submit">Sign in</button>
                     <p class="mt-5 mb-3 text-muted">&copy; 2019</p>
                 </div>
             </div>

@@ -82,9 +82,8 @@ class register extends Component {
                     <input type="password" id="inputan" class="form-control" placeholder="Re-Type Password" ref='repassword' required/>
                     </center>
                     <br/>
-                    <a>Already have an account? <Link to='/login' className='registerhere'>sign in here</Link></a>
-                    <br/><br/>
-                    <button onClick={this.register} class="btn btn-lg btn-primary btn-block button21" style={{width:300, marginLeft:200, backgroundColor:'#006563', border:'none'}} type="submit">Sign in</button>
+                    <p>Already have an account? <Link to='/login' className='registerhere'>sign in here</Link></p>
+                    <button onClick={this.register} class="btn btn-lg btn-primary btn-block btn21" style={{width:300, marginLeft:200, backgroundColor:'#006563', border:'none'}} type="submit">Register</button>
                     <p class="mt-5 mb-3 text-muted">&copy; 2019</p>
                 </div>
             </div>

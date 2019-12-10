@@ -3,6 +3,7 @@ import '../App.css';
 import {connect} from 'react-redux' // Harus ada untuk akses global state
 import Carousel from '../Components/Carousel'
 import Axios from 'axios';
+import { Link } from 'react-router-dom'
 
 
 class home extends Component {
@@ -23,7 +24,9 @@ class home extends Component {
         return this.state.movie.map((val,) =>{
             return(
                 <div style={{marginBottom:80}}>
-                <img src={val.image} style={{padding:15}}></img>
+                <Link to={`/moviedetails/${val.id}`}>
+                <img src={val.image} style={{margin:20}} class='posterindv'></img>
+                </Link>
                 <br/>
                 <label style={{fontWeight:600, fontSize:17}}>
                     {val.name}
