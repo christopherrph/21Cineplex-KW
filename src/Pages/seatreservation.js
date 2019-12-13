@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux' // Harus ada untuk akses global state
 import Axios from 'axios';
 import {MdEventSeat} from "react-icons/md";
+import { Redirect } from 'react-router-dom'
 
 class seatreservation extends Component {
     state = {  
@@ -10,7 +11,8 @@ class seatreservation extends Component {
         ],
         chosen: [],
         price: 0,
-        count: 0
+        count: 0,
+        booked: []
     }
     
     componentDidMount(){
@@ -18,16 +20,19 @@ class seatreservation extends Component {
         id = id.replace('/seatreservation/', '')  
         Axios.get(`http://localhost:2000/movies/${id}`)
         .then((res) =>  {
-            this.setState({movies:res.data})  // Memasukkan dari 'axios.get' kedalam array dataa dalam state
+            this.setState({
+                movies:res.data,
+                booked:res.data.booked
+            })  // Memasukkan dari 'axios.get' kedalam array dataa dalam state
             console.log(this.state.movies)
         })
     }
     
     renderseats = () =>{
-        var { chosen } = this.state
-        var udadibook = this.state.movies.booked
-        console.log(typeof(udadibook))
+        var { chosen, booked } = this.state
+        var udadibook = booked;
         console.log(udadibook)
+        console.log(udadibook.length)
         var arr = []
         for(var i=0; i<=4 ;i++){
             arr.push([])
@@ -35,21 +40,25 @@ class seatreservation extends Component {
                 arr[i].push(1)
             }
         }
+        
+        if(typeof(udadibook)!= 'undefined'){
+        for(var l=0; l<udadibook.length; l++){
+                arr[udadibook[l][0]][udadibook[l][1]] = 3
+        }
+        }
+        
 
         for(var k=0; k<chosen.length; k++){
             arr[chosen[k][0]][chosen[k][1]] = 2
         }
-
-        // for(var l=0; l<=udadibook.length; l++){
-        //     arr[udadibook[l][0]][udadibook[l][1]] = 3
-        // }
         
         console.log(arr)
+        
         
         return arr.map((val,row) => {
          return(
              <div style={{marginBottom:10}}>
-                    {row+1} {
+                    {String.fromCharCode((row+1) + 64)} {
                     val.map((val1,no) =>{
                         if(val1 == 1){
                             return(
@@ -84,7 +93,7 @@ class seatreservation extends Component {
 
     Cancel = (arr) =>{
         let { price, count, chosen } = this.state;
-        let output = chosen.filter((val) => {
+        let output = chosen.filter((val) => {         // bikin array baru (output) yang isinya filter dari array chosen. isinya nilai chosen yang tidak sama dengan arr
             return val.join('') !== arr.join('')
         })
         this.setState({
@@ -98,24 +107,37 @@ class seatreservation extends Component {
     book = () =>{
         let {chosen} = this.state;
         var book = this.state.movies.booked;
-        book.push(chosen)
+        for(var i=0; i<chosen.length; i++){
+            book.push(chosen[i])
+        }
         console.log(book)
-        Axios.put(`http://localhost:2000/movies/${this.state.movies.id}`,{
-        booked: book,
-        name: this.state.movies.name,
-        genre: this.state.movies.genre,
-        director: this.state.movies.director,
-        duration: this.state.movies.duration,
-        synopsis: this.state.movies.synopsis,
-        casts: this.state.movies.casts,
-        image: this.state.movies.image
+        Axios.patch(`http://localhost:2000/movies/${this.state.movies.id}`,{
+        booked: book
       })
       .then((res) =>  {
+        Axios.post(`http://localhost:2000/transaction`,{
+            username: this.props.nama,
+            movies: this.state.movies.name,
+            ticket_amount: this.state.count,
+            totalprice: this.state.price,
+            seat: this.state.chosen,
+            status: 'Unpaid'
+          })
+        this.setState({
+                        chosen: [],
+                        price: 0,
+                        count: 0
+                    })
         alert('Booking Succesfull!')
+        this.setState({ redirect: true })
     })
     }
 
     render() { 
+     const { redirect } = this.state;
+     if (redirect) {
+       return <Redirect to={`/`}/>;
+     }
         return (
             <div>
                 <center>
@@ -140,5 +162,11 @@ class seatreservation extends Component {
           );
     }
 }
+
+const mapStateProps = (state) =>{ // Function yang akan terima global state
+    return{
+      nama: state.user.username, //state.user(merujuk ke index.js reducer).username(masuk ke global state di authReducer)
+    }
+}
  
-export default seatreservation;
+export default connect(mapStateProps)(seatreservation);

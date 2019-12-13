@@ -30,7 +30,7 @@ class login extends Component {
             alert('Wrong Username or Password')
             }else{
             localStorage.setItem('username', username)
-            this.props.signin(res.data[0])
+            this.props.signin(username, password)
             this.setState({ redirect: true })
             } 
         })

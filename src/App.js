@@ -8,6 +8,7 @@ import managemovies from './Pages/managemovies';
 import seatreservation from './Pages/seatreservation';
 import addmovies from './Pages/addmovies';
 import editmovie from './Pages/editmovie';
+import profile from './Pages/profile';
 import Header from './Components/header';
 import Footer from './Components/footer';
 import Axios from 'axios';
@@ -24,7 +25,7 @@ class App extends Component{
     if(username != null){
       Axios.get(`http://localhost:2000/login?username=${username}`)
         .then((res) =>  {
-          this.props.signin(res.data[0])
+          this.props.signin(username, res.data[0].password)
           })
     }
   }
@@ -41,6 +42,7 @@ class App extends Component{
         <Route path='/seatreservation' component={seatreservation} />
         <Route path='/addmovies' component={addmovies} />
         <Route path='/editmovie' component={editmovie} />
+        <Route path='/profile' component={profile} />
         <Footer/>
       </div>  
     )

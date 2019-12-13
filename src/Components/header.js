@@ -8,15 +8,23 @@ import { FaMapMarkedAlt, FaEdit } from "react-icons/fa";
 import { AiOutlineLogin } from "react-icons/ai";
 import { IoIosPerson } from "react-icons/io"
 import {logout} from '../Redux/Action'
+import { Redirect } from 'react-router-dom'
 
 class Header extends Component {
+
+    state =[]
 
     logout = () =>{
       localStorage.removeItem('username');
       this.props.logout();
+      this.setState({ redirect: true })
     }
 
     render() { 
+    const { redirect } = this.state;
+     if (redirect) {
+       return <Redirect to='/'/>;
+     }
         return (
             <div>
                 <center>
@@ -63,6 +71,17 @@ class Header extends Component {
                         ''
                         }
                         {
+                        this.props.role == 'user'
+                        ?
+                        <div style={{marginTop:17}}>
+                        <Link to={`/profile/${this.props.nama}`} style={{marginTop:17}}>
+                        <a href='' class='menu'><IoIosPerson/> Booking </a>
+                        </Link>
+                        </div>
+                        :
+                        ''
+                        }
+                        {
                         this.props.nama
                         ?
                         <a href='' onClick={this.logout} class='menu'><AiOutlineLogin/> Sign Out</a>
@@ -71,7 +90,7 @@ class Header extends Component {
                         <a href='' class='menu'><AiOutlineLogin/> Sign In</a>
                         </Link>
                         }
-                        <img class='verticalline' src='https://i.dlpng.com/static/png/2311890-straight-vertical-line-png-8-png-image-vertical-line-png-picture-2000_3938_preview.png'/>
+                        <img class='verticalline' style={{opacity:0.2}} src='https://banner2.cleanpng.com/20180607/ehf/kisspng-vertical-bar-character-clip-art-straight-line-5b193c68cd0d45.9463918115283805208399.jpg'/>
                         <div style={{marginLeft:120}}>
                             <img class='menu' src='https://21cineplex.com//theme/v5/assets/img/imax-menu.png'/>
                             <img class='menu' src='https://21cineplex.com//theme/v5/assets/img/dolby-menu.png'/>

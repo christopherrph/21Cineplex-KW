@@ -47,6 +47,8 @@ class home extends Component {
                 :
                 ''
                 }
+
+                <center><h2>Text: {this.props.text}</h2></center>
                 <img src='https://ods.adelva.com/www/images/d4f32c51776f44b8658c50a04703ad84.jpg' style={{position:"absolute", right:130}}/>
                 <div class='carousel'>
                 <Carousel/>
@@ -75,7 +77,8 @@ class home extends Component {
 
 const mapStateProps = (state) =>{ // Function yang akan terima global state
     return{
-      nama: state.user.username //state.user(merujuk ke index.js reducer).username(masuk ke global state di authReducer)
+      nama: state.user.username, //state.user(merujuk ke index.js reducer).username(masuk ke global state di authReducer)
+      text: state.contoh.text
     }
 }
  
