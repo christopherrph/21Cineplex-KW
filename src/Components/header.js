@@ -57,19 +57,23 @@ class Header extends Component {
                     <Link to='/' style={{marginTop:17}}><a href='' class='menu' style={{marginLeft:180}}><TiArrowRightOutline/> Now Playing</a></Link>
                         <a href='' class='menu'><GiSpeaker/> Upcoming</a>
                         <a href='' class='menu'><FaMapMarkedAlt/> Theaters</a>
+
                         {
                         this.props.role == 'admin'
                         ?
                         <div style={{marginTop:17}}>
-                        <a href='' class='menu' id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><FaEdit/> Movies</a>
+                        <a href='' class='menu' id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><FaEdit/> Manage</a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style={{marginTop:10}}>
                             <Link to='./addmovies'><a class="dropdown-item" href="#">Add Movies</a></Link>
                             <Link to='/managemovies'><a class="dropdown-item" href="#">Edit Movies</a></Link>
+                            <div class="dropdown-divider"></div>
+                            <Link to='/transactions'><a class="dropdown-item" href="#">Transactions</a></Link>
                         </div>
                         </div>
                         :
                         ''
                         }
+                        
                         {
                         this.props.role == 'user'
                         ?

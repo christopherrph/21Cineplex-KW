@@ -18,7 +18,7 @@ class home extends Component {
             this.setState({movie:res.data})  // Memasukkan dari 'axios.get' kedalam array dataa dalam state
             console.log(this.state.movie)
         })
-      } 
+    } 
 
     renderPoster = () =>{
         return this.state.movie.map((val,) =>{
@@ -49,6 +49,7 @@ class home extends Component {
                 }
 
                 <center><h2>Text: {this.props.text}</h2></center>
+                {console.log(this.props.text)}
                 <img src='https://ods.adelva.com/www/images/d4f32c51776f44b8658c50a04703ad84.jpg' style={{position:"absolute", right:130}}/>
                 <div class='carousel'>
                 <Carousel/>

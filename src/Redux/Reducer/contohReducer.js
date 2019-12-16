@@ -7,12 +7,12 @@ export const contohReducer = (state = INITIAL_STATE, action) => {
         case 'CONTOH':
             return{
                 ...state, 
-                text: 'Berhasil!'
+                text: '-----'
             }
         case 'CONTOHOUT':
             return{
                 ...state, 
-                text: 'Sudah Logout!'
+                text: '.....'
             }
         default:
             return state

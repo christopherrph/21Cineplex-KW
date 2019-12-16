@@ -6,14 +6,13 @@ export const signin = (username, password) =>{   // Action Creator
         .then((res) => {
 
             dispatch({
-            type: 'LOGIN',
-            payload: res.data[0]
-            })
-
-            dispatch({
                 type: 'CONTOH',
             })
 
+            dispatch({
+            type: 'LOGIN',
+            payload: res.data[0]
+            })
         })
         .catch((err) =>{
             dispatch({
@@ -25,14 +24,13 @@ export const signin = (username, password) =>{   // Action Creator
 
 export const logout = () =>{
     return(dispatch) =>{
-        
-        dispatch({
-            type: 'LOGOUT'
-        })
 
         dispatch({
             type: 'CONTOHOUT'
         })
 
+        dispatch({
+            type: 'LOGOUT'
+        })
     }
 }
