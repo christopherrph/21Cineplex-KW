@@ -32,7 +32,6 @@ class profile extends Component {
             huruf = alphabet[row]
             output += `${huruf}${nomor} `  
         }
-        
         return output
     }
 

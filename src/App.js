@@ -9,6 +9,7 @@ import seatreservation from './Pages/seatreservation';
 import addmovies from './Pages/addmovies';
 import editmovie from './Pages/editmovie';
 import profile from './Pages/profile';
+import transactions from './Pages/transactions';
 import Header from './Components/header';
 import Footer from './Components/footer';
 import Axios from 'axios';
@@ -43,6 +44,7 @@ class App extends Component{
         <Route path='/addmovies' component={addmovies} />
         <Route path='/editmovie' component={editmovie} />
         <Route path='/profile' component={profile} />
+        <Route path='/transactions' component={transactions} />
         <Footer/>
       </div>  
     )
