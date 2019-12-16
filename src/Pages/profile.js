@@ -40,6 +40,9 @@ class profile extends Component {
         .then((res) =>  {
           this.componentDidMount()
         })
+        .catch((err) => {
+            console.log(err)
+        })
 
         console.log(movies)
         Axios.get(`http://localhost:2000/movies?name=${movies}`)
@@ -67,6 +70,9 @@ class profile extends Component {
                 console.log(err)
             })
             
+        })
+        .catch((err) => {
+            console.log(err)
         })
 
     }

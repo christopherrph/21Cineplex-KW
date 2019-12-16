@@ -11,26 +11,34 @@ class transactions extends Component {
         Axios.get(`http://localhost:2000/movies`)
         .then((res) =>  {
             this.setState({
-                movies:res.data,
+                movies:res.data
             })
         })
 
         Axios.get(`http://localhost:2000/transaction`)
         .then((res) =>  {
             this.setState({
-                transaction:res.data,
+                transaction:res.data
             })
+            console.log(this.state.transaction)
         })
     }
 
     RenderAvailable = () =>{
         return this.state.movies.map((val, index) =>{
+            var seattaken = 0
+            for(var i=0; i<this.state.transaction.length; i++){
+                if(val.name == this.state.transaction[i].movies){
+                    seattaken += this.state.transaction[i].ticket_amount
+                }
+            }
+            var remaining = 100 - seattaken
             return(
                 <tr>
                     <td>{index+1}</td>
                     <td>{val.name}</td>
-                    <td></td>
-                    <td></td>
+                    <td>{remaining}</td>
+                    <td>{seattaken}</td>
                 </tr>
             )
         })

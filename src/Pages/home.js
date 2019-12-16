@@ -18,6 +18,9 @@ class home extends Component {
             this.setState({movie:res.data})  // Memasukkan dari 'axios.get' kedalam array dataa dalam state
             console.log(this.state.movie)
         })
+        .catch((err) => {
+            console.log(err)
+        })
     } 
 
     renderPoster = () =>{
