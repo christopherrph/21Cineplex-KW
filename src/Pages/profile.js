@@ -11,7 +11,7 @@ class profile extends Component {
         var nama = window.location.pathname;
         nama = nama.replace('/profile/', '')
         console.log(nama)
-        Axios.get(`http://localhost:2000/transaction?username=${nama}`)
+        Axios.get(`http://localhost:2000/transaction?username=${nama}&status=Unpaid`)
         .then((res) =>  {
             this.setState({
                 detail:res.data,
@@ -74,7 +74,21 @@ class profile extends Component {
         .catch((err) => {
             console.log(err)
         })
+    }
 
+    checkout = (nama) =>{
+        console.log(nama)
+        Axios.get(`http://localhost:2000/transaction?username=${nama}`)
+            .then((res)=>{
+                console.log(res.data)
+                res.data.forEach(element => {
+                    Axios.patch(`http://localhost:2000/transaction/${element.id}`,{status:'Paid'})
+                });
+                this.componentDidMount()
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
     RenderOnGoing = () =>{
@@ -91,7 +105,14 @@ class profile extends Component {
                 </tr>
             )
         })
+    }
 
+    RenderTotal = () =>{
+        var total=0
+        for(var i=0; i<this.state.detail.length; i++){
+            total+= this.state.detail[i].totalprice
+        }
+        return total
     }
 
     render() { 
@@ -99,7 +120,7 @@ class profile extends Component {
             <div>
                 <center>
                     <h3 style={{marginTop:20}}>Ticket Booking</h3>
-                <table class="table" style={{width:800, marginTop:10,marginBottom:200}}>
+                <table class="table" style={{width:800, marginTop:10,marginBottom:60}}>
                     <thead class="thead" style={{backgroundColor:'#006563', color:'white'}}>
                         <tr>
                         <th scope="col">No</th>
@@ -115,6 +136,10 @@ class profile extends Component {
                         {this.RenderOnGoing()}
                     </tbody>
                 </table>
+                <hr/>
+                <label>Total Price: Rp. {this.RenderTotal().toLocaleString()}  </label>
+                <br/>
+                <button className='btn btn21' onClick={() => { if(window.confirm('Are You Sure You Want To Checkout?')) this.checkout(this.props.nama)} } style={{marginBottom:30}}>CheckOut</button>
                 </center>
             </div>
          );

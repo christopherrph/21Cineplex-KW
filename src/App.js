@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import home from './Pages/home';
 import login from './Pages/login';
 import register from './Pages/register';
@@ -9,7 +9,9 @@ import seatreservation from './Pages/seatreservation';
 import addmovies from './Pages/addmovies';
 import editmovie from './Pages/editmovie';
 import profile from './Pages/profile';
+import profil from './Pages/profil';
 import transactions from './Pages/transactions';
+import notfound from './Pages/notfound';
 import Header from './Components/header';
 import Footer from './Components/footer';
 import Axios from 'axios';
@@ -35,6 +37,7 @@ class App extends Component{
     return(
       <div>
         <Header/>
+        <Switch>
         <Route path='/' component={home} exact />
         <Route path='/login' component={login} />
         <Route path='/register' component={register} />
@@ -45,6 +48,9 @@ class App extends Component{
         <Route path='/editmovie' component={editmovie} />
         <Route path='/profile' component={profile} />
         <Route path='/transactions' component={transactions} />
+        <Route path='/profil' component={profil} />
+        <Route path='*' component={notfound}/>
+        </Switch>
         <Footer/>
       </div>  
     )

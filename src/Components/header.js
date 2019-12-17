@@ -2,22 +2,48 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import '../App.css';
 import {connect} from 'react-redux' // Harus ada untuk akses global state
-import { TiArrowRightOutline } from "react-icons/ti";
+import { TiArrowRightOutline, TiShoppingCart, TiPencil } from "react-icons/ti";
 import { GiSpeaker, GiRoundStar } from "react-icons/gi";
 import { FaMapMarkedAlt, FaEdit } from "react-icons/fa";
 import { AiOutlineLogin } from "react-icons/ai";
 import { IoIosPerson } from "react-icons/io"
 import {logout} from '../Redux/Action'
 import { Redirect } from 'react-router-dom'
+import Axios from 'axios';
 
 class Header extends Component {
 
-    state =[]
+    state ={
+        cart:[]
+    }
+
+    componentDidMount(){
+        Axios.get(`http://localhost:2000/transaction`)
+        .then((res) =>  {
+            this.setState({
+                cart:res.data
+            })
+        })
+    }
 
     logout = () =>{
       localStorage.removeItem('username');
       this.props.logout();
       this.setState({ redirect: true })
+    }
+
+
+
+    cartamount = () =>{
+        var num = 0
+        for(var i=0; i<this.state.cart.length; i++){
+            if(this.state.cart[i].username == this.props.nama){
+                if(this.state.cart[i].status == 'Unpaid'){
+                    num++
+                }
+            }
+        }
+        return num
     }
 
     render() { 
@@ -56,7 +82,6 @@ class Header extends Component {
                     <div class='row'>
                     <Link to='/' style={{marginTop:17}}><a href='' class='menu' style={{marginLeft:180}}><TiArrowRightOutline/> Now Playing</a></Link>
                         <a href='' class='menu'><GiSpeaker/> Upcoming</a>
-                        <a href='' class='menu'><FaMapMarkedAlt/> Theaters</a>
 
                         {
                         this.props.role == 'admin'
@@ -73,17 +98,36 @@ class Header extends Component {
                         :
                         ''
                         }
-                        
                         {
                         this.props.role == 'user'
                         ?
                         <div style={{marginTop:17}}>
                         <Link to={`/profile/${this.props.nama}`} style={{marginTop:17}}>
-                        <a href='' class='menu'><IoIosPerson/> Booking </a>
+                        <a href='' class='menu'><TiShoppingCart/> Cart </a> <a class="badge badge-danger">{this.cartamount()}</a>
                         </Link>
                         </div>
                         :
                         ''
+                        }
+                        {
+                        this.props.role == 'user'
+                        ?
+                        <div style={{marginTop:17}}>
+                        <Link to={`/profil/${this.props.id}`} style={{marginTop:17}}>
+                        <a href='' class='menu'><IoIosPerson/> Profile </a>
+                        </Link>
+                        </div>
+                        :
+                        ''
+                        }
+                        {
+                        this.props.nama
+                        ?
+                        ''
+                        :
+                        <Link to='/register' style={{marginTop:17}}>
+                        <a href='' class='menu'><TiPencil/> Register</a>
+                        </Link>
                         }
                         {
                         this.props.nama
@@ -110,6 +154,7 @@ class Header extends Component {
 const mapStateProps = (state) =>{ // Function yang akan terima global state
     return{
       nama: state.user.username, //state.user(merujuk ke index.js reducer).username(masuk ke global state di authReducer)
+      id: state.user.id,
       role: state.user.role
     }
 }
