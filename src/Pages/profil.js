@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import {connect} from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 class profil extends Component {
     state = { 
@@ -12,21 +13,24 @@ class profil extends Component {
         var id = window.location.pathname;
         id = id.replace('/profil/', '')
         console.log(id)
+        var iduser = localStorage.getItem('id');
+        if(iduser != id ){
+            this.setState({ redirect: true })
+        }
         Axios.get(`http://localhost:2000/login/${id}`)
         .then((res) =>  {
             this.setState({
                 profile:res.data
             })
             console.log(res.data)
-        })
-
-        Axios.get(`http://localhost:2000/transaction?username=${this.state.profile.username}&status=Paid`)
-        .then((res) =>  {
-            console.log(res.data)
-            this.setState({
-                detail:res.data,
-            })
-            console.log(res.data)
+                Axios.get(`http://localhost:2000/transaction?username=${this.state.profile.username}&status=Paid`)
+                .then((res) =>  {
+                    console.log(res.data)
+                    this.setState({
+                        detail:res.data,
+                    })
+                    console.log(res.data)
+                })
         })
     }
 
@@ -46,48 +50,6 @@ class profil extends Component {
         return output
     }
 
-    cancel = (id, seat, movies) =>{
-        Axios.delete(`http://localhost:2000/transaction/${id}`)
-        .then((res) =>  {
-          this.componentDidMount()
-        })
-        .catch((err) => {
-            console.log(err)
-        })
-
-        console.log(movies)
-        Axios.get(`http://localhost:2000/movies?name=${movies}`)
-        .then((res) =>  {
-            var book = res.data[0].booked;
-            var id = res.data[0].id;
-            console.log(book)
-            console.log(seat)
-
-            for(var i=0; i<seat.length; i++){
-                for(var j=0; j<book.length; j++){
-                    if(seat[i][0]==book[j][0] && seat[i][1]==book[j][1]){
-                        console.log(j)
-                        book.splice(j, 1);
-                    }
-                }
-            }
-            console.log(book)
-            Axios.patch(`http://localhost:2000/movies/${id}`,{
-                booked: book})
-            .then((res)=>{
-                alert('Booking Cancelled')
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-            
-        })
-        .catch((err) => {
-            console.log(err)
-        })
-
-    }
-
     RenderOnGoing = () =>{
         return this.state.detail.map((val, index) =>{
             return(
@@ -97,14 +59,44 @@ class profil extends Component {
                     <td>{val.ticket_amount}</td>
                     <td>{this.ConvertSeat(val.seat)}</td>
                     <td>Rp. {(val.totalprice).toLocaleString()}</td>
-                    <td>{val.status}</td>
-                    <td><button className='btn btn21profile' onClick={() => { if(window.confirm('Are You Sure You Want To Cancel This Booking?')) this.cancel(val.id, val.seat, val.movies)} }>Cancel</button></td>
+                    <td>{val.orderdate}</td>
                 </tr>
             )
         })
     }
 
+    changepassword = () =>{
+        var oldpass = this.refs.oldpass.value
+        var newpass = this.refs.newpass.value
+        var renewpass = this.refs.renewpass.value
+
+        if(oldpass && newpass && renewpass){
+            if(oldpass == this.state.profile.password){
+                if(newpass == renewpass){
+                    Axios.patch(`http://localhost:2000/login/${this.state.profile.id}`,{password:newpass})
+                    .then((res)=>{
+                        alert('Password Change Succesfull')
+                        document.getElementById('oldpass').value = ''
+                        document.getElementById('newpass').value = ''
+                        document.getElementById('renewpass').value = ''
+                    })
+                }else{
+                    alert('New Password Did Not Match')
+                }
+            }else{
+                alert('Old Password Did Not Match')
+            }
+        }else(
+            alert('Please Dont Leave Form Empty')
+        )
+
+    }
+
     render() { 
+    const { redirect } = this.state;
+     if (redirect) {
+       return <Redirect to='/error-bwek-bwek-bwek'/>;
+     }
         return ( 
                 <section id="tabs" class="project-tab" style={{marginBottom:-30}}>
                     <div class="container">
@@ -139,17 +131,17 @@ class profil extends Component {
                                         <hr/>
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Old Password</label>
-                                            <input type="password" class="form-control" style={{width:500}} ref='oldpass' aria-describedby="emailHelp"/>
+                                            <input type="password" class="form-control" style={{width:500}} ref='oldpass' aria-describedby="emailHelp" id='oldpass'/>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">New Password</label>
-                                            <input type="password" class="form-control" style={{width:500}} ref='newpass' aria-describedby="emailHelp"/>
+                                            <input type="password" class="form-control" style={{width:500}} ref='newpass' aria-describedby="emailHelp" id='newpass'/>
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Re-Type New Password</label>
-                                            <input type="password" class="form-control" style={{width:500}} ref='renewpass' aria-describedby="emailHelp"/>
+                                            <input type="password" class="form-control" style={{width:500}} ref='renewpass' aria-describedby="emailHelp" id='renewpass'/>
                                         </div>
-                                        <button className='btn btn21'> Submit</button>
+                                        <button className='btn btn21' onClick={this.changepassword}> Submit</button>
                                         </center>
                                     </div>
 
@@ -165,8 +157,7 @@ class profil extends Component {
                                             <th scope="col">Amount</th>
                                             <th scope="col">Seat Number</th>
                                             <th scope="col">Total</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col"></th>
+                                            <th scope="col">Order Date</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -186,7 +177,8 @@ class profil extends Component {
 
 const mapStateProps = (state) =>{ // Function yang akan terima global state
     return{
-      nama: state.user.username //state.user(merujuk ke index.js reducer).username(masuk ke global state di authReducer)
+      nama: state.user.username, //state.user(merujuk ke index.js reducer).username(masuk ke global state di authReducer)
+      id: state.user.id
     }
 }
  

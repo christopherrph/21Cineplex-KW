@@ -17,6 +17,18 @@ class register extends Component {
     componentDidMount(){
       } 
 
+
+    checkpassword = (str) =>{
+        if (str.length <= 8) {
+          return(false);
+        }else if (str.search(/\d/) == -1) {
+          return(false);
+        } else if (str.search(/[a-zA-Z]/) == -1) {
+          return(false);
+        }
+        return(true);
+    }
+
     register = () =>{
         var email = this.refs.email.value
         var username = this.refs.username.value
@@ -24,7 +36,8 @@ class register extends Component {
         var repassword = this.refs.repassword.value
         if(email && username && password && repassword){
             if(password == repassword){
-               Axios.get(`http://localhost:2000/login?username=${username}`) // Get dari akun yang username sm passwordnya sesuai
+              if(this.checkpassword(password)){
+                Axios.get(`http://localhost:2000/login?username=${username}`) // Get dari akun yang username sm passwordnya sesuai
                .then((res) =>  {
                 if(res.data.length === 0){
                     Axios.get(`http://localhost:2000/login?email=${email}`) // Get dari akun yang username sm passwordnya sesuai
@@ -49,6 +62,9 @@ class register extends Component {
                   alert('Username Taken')
                 } 
               })
+              }else{
+                alert('Invalid Password')
+              }
             }else{
             alert('Password Did Not Match')
             }
@@ -82,6 +98,7 @@ class register extends Component {
                     <input type="password" id="inputan" class="form-control" placeholder="Re-Type Password" ref='repassword' required/>
                     </center>
                     <br/>
+                    <p style={{fontSize:12, marginTop:-20, marginBottom:30}}>Password must be more than 8 characters and contains a number</p>
                     <p>Already have an account? <Link to='/login' className='registerhere'>sign in here</Link></p>
                     <button onClick={this.register} class="btn btn-lg btn-primary btn-block btn21" style={{width:300, marginLeft:200, backgroundColor:'#006563', border:'none'}} type="submit">Register</button>
                     <p class="mt-5 mb-3 text-muted">&copy; 2019</p>

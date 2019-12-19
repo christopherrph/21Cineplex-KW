@@ -5,6 +5,13 @@ import { Redirect } from 'react-router-dom'
 class addmovies extends Component {
     state = {  }
 
+    componentDidMount(){
+        var role = localStorage.getItem('role');
+        if(role != 'admin'){
+            this.setState({ redirecterror: true })
+        }
+      } 
+
     submit = () =>{
         var title = this.refs.title.value
         var genre = this.refs.genre.value
@@ -44,6 +51,11 @@ class addmovies extends Component {
      const { redirect } = this.state;
      if (redirect) {
        return <Redirect to='/'/>;
+     }
+
+     const { redirecterror } = this.state;
+     if (redirecterror) {
+       return <Redirect to='/error-bwek-bwek-bwek'/>;
      }
         return (
             <div>

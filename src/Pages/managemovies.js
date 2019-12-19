@@ -14,6 +14,10 @@ class managemovies extends Component {
     }
 
     componentDidMount(){
+        var role = localStorage.getItem('role');
+        if(role != 'admin'){
+            this.setState({ redirect: true })
+        }
         Axios.get('http://localhost:2000/movies')
         .then((res) =>  {
             this.setState({movie:res.data})  // Memasukkan dari 'axios.get' kedalam array dataa dalam state
@@ -69,6 +73,10 @@ class managemovies extends Component {
     }
 
     render() { 
+    const { redirect } = this.state;
+     if (redirect) {
+       return <Redirect to='/error-bwek-bwek-bwek'/>;
+     }
         return (
             <div>
                 <br/>
@@ -95,5 +103,11 @@ class managemovies extends Component {
           );
     }
 }
+
+const mapStateProps = (state) =>{ // Function yang akan terima global state
+    return{
+      role: state.user.role, //state.user(merujuk ke index.js reducer).username(masuk ke global state di authReducer)
+    }
+}
  
-export default managemovies;
+export default connect (mapStateProps)(managemovies);

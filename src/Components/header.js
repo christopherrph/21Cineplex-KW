@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import '../App.css';
 import {connect} from 'react-redux' // Harus ada untuk akses global state
-import { TiArrowRightOutline, TiShoppingCart, TiPencil } from "react-icons/ti";
+import { TiArrowRightOutline, TiShoppingCart, TiPencil, TiContacts } from "react-icons/ti";
 import { GiSpeaker, GiRoundStar } from "react-icons/gi";
 import { FaMapMarkedAlt, FaEdit } from "react-icons/fa";
 import { AiOutlineLogin } from "react-icons/ai";
@@ -28,6 +28,8 @@ class Header extends Component {
 
     logout = () =>{
       localStorage.removeItem('username');
+      localStorage.removeItem('role');
+      localStorage.removeItem('id');
       this.props.logout();
       this.setState({ redirect: true })
     }
@@ -81,7 +83,7 @@ class Header extends Component {
                 <div class='sec2'>
                     <div class='row'>
                     <Link to='/' style={{marginTop:17}}><a href='' class='menu' style={{marginLeft:180}}><TiArrowRightOutline/> Now Playing</a></Link>
-                        <a href='' class='menu'><GiSpeaker/> Upcoming</a>
+                    <Link to='/contact' style={{marginTop:17}}><a href='' class='menu'><TiContacts/> Contact Us</a></Link>
 
                         {
                         this.props.role == 'admin'
@@ -93,6 +95,8 @@ class Header extends Component {
                             <Link to='/managemovies'><a class="dropdown-item" href="#">Edit Movies</a></Link>
                             <div class="dropdown-divider"></div>
                             <Link to='/transactions'><a class="dropdown-item" href="#">Transactions</a></Link>
+                            <Link to='/user'><a class="dropdown-item" href="#">User</a></Link>
+                            <Link to='/feedback'><a class="dropdown-item" href="#">Feedback</a></Link>
                         </div>
                         </div>
                         :
@@ -103,7 +107,8 @@ class Header extends Component {
                         ?
                         <div style={{marginTop:17}}>
                         <Link to={`/profile/${this.props.nama}`} style={{marginTop:17}}>
-                        <a href='' class='menu'><TiShoppingCart/> Cart </a> <a class="badge badge-danger">{this.cartamount()}</a>
+                        <a href='' class='menu'><TiShoppingCart/> Cart </a>
+                        {/* <a class="badge badge-danger">{this.cartamount()}</a> */}
                         </Link>
                         </div>
                         :

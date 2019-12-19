@@ -115,21 +115,55 @@ class seatreservation extends Component {
         booked: book
       })
       .then((res) =>  {
-        Axios.post(`http://localhost:2000/transaction`,{
-            username: this.props.nama,
-            movies: this.state.movies.name,
-            ticket_amount: this.state.count,
-            totalprice: this.state.price,
-            seat: this.state.chosen,
-            status: 'Unpaid'
-          })
-        this.setState({
-                        chosen: [],
-                        price: 0,
-                        count: 0
-                    })
-        alert('Booking Succesfull!')
-        this.setState({ redirect: true })
+        Axios.get(`http://localhost:2000/transaction?username=${this.props.nama}&movies=${this.state.movies.name}&status=Unpaid`)
+        .then((res)=>{
+            if(res.data.length === 0){
+                var today = new Date();
+                var dd = String(today.getDate()).padStart(2, '0');
+                var mm = String(today.getMonth() + 1).padStart(2, '0');
+                var yyyy = today.getFullYear();
+                today = dd + '/' + mm + '/' + yyyy;
+                Axios.post(`http://localhost:2000/transaction`,{
+                    username: this.props.nama,
+                    movies: this.state.movies.name,
+                    ticket_amount: this.state.count,
+                    totalprice: this.state.price,
+                    seat: this.state.chosen,
+                    orderdate: today,
+                    status: 'Unpaid'
+                })
+                this.setState({
+                                chosen: [],
+                                price: 0,
+                                count: 0
+                            })
+                alert('Booking Succesfull!')
+                this.setState({ redirect: true })
+            }else{
+
+
+                var seatbaru = res.data[0].seat
+                console.log(seatbaru)
+                console.log(chosen)
+                for(var i =0; i<chosen.length; i++){
+                    seatbaru.push(chosen[i])
+                }
+
+                Axios.patch(`http://localhost:2000/transaction/${res.data[0].id}`,{
+                ticket_amount: res.data[0].ticket_amount + this.state.count,
+                totalprice: res.data[0].totalprice + this.state.price,
+                seat: seatbaru
+                }
+                )
+            .then((res)=>{
+                alert('Booking Succesfull')
+                this.setState({ redirect: true })
+            })
+
+
+
+            }
+        })
     })
     }
 

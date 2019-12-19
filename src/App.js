@@ -7,11 +7,15 @@ import moviedetails from './Pages/moviedetails';
 import managemovies from './Pages/managemovies';
 import seatreservation from './Pages/seatreservation';
 import addmovies from './Pages/addmovies';
+import contact from './Pages/contact';
 import editmovie from './Pages/editmovie';
 import profile from './Pages/profile';
 import profil from './Pages/profil';
 import transactions from './Pages/transactions';
 import notfound from './Pages/notfound';
+import user from './Pages/user';
+import feedback from './Pages/feedback';
+import history from './Pages/history';
 import Header from './Components/header';
 import Footer from './Components/footer';
 import Axios from 'axios';
@@ -47,8 +51,12 @@ class App extends Component{
         <Route path='/addmovies' component={addmovies} />
         <Route path='/editmovie' component={editmovie} />
         <Route path='/profile' component={profile} />
+        <Route path='/contact' component={contact} />
         <Route path='/transactions' component={transactions} />
         <Route path='/profil' component={profil} />
+        <Route path='/user' component={user} />
+        <Route path='/feedback' component={feedback} />
+        <Route path='/history' component={history} />
         <Route path='*' component={notfound}/>
         </Switch>
         <Footer/>

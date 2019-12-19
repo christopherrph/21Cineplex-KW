@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import {connect} from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 class profile extends Component {
     state = { 
@@ -84,7 +85,8 @@ class profile extends Component {
                 res.data.forEach(element => {
                     Axios.patch(`http://localhost:2000/transaction/${element.id}`,{status:'Paid'})
                 });
-                this.componentDidMount()
+                alert('Checkout Success')
+                this.setState({ redirect: true })
             })
             .catch((err) => {
                 console.log(err)
@@ -116,6 +118,10 @@ class profile extends Component {
     }
 
     render() { 
+    const { redirect } = this.state;
+    if (redirect) {
+       return <Redirect to={`/`}/>;
+    }
         return ( 
             <div>
                 <center>
@@ -148,8 +154,9 @@ class profile extends Component {
 
 const mapStateProps = (state) =>{ // Function yang akan terima global state
     return{
-      nama: state.user.username //state.user(merujuk ke index.js reducer).username(masuk ke global state di authReducer)
+      nama: state.user.username, //state.user(merujuk ke index.js reducer).username(masuk ke global state di authReducer)
+      id: state.user.id
     }
 }
- 
+
 export default connect(mapStateProps)(profile);

@@ -11,6 +11,12 @@ class editmovie extends Component {
      }
 
     componentDidMount(){
+
+        var role = localStorage.getItem('role');
+        if(role != 'admin'){
+            this.setState({ redirecterror: true })
+        }
+
         var id = window.location.pathname;
         id = id.replace('/editmovie/', '')  
         console.log(id)
@@ -50,6 +56,11 @@ class editmovie extends Component {
      const { redirect } = this.state;
      if (redirect) {
        return <Redirect to='/managemovies'/>;
+     }
+
+     const { redirecterror } = this.state;
+     if (redirecterror) {
+       return <Redirect to='/error-bwek-bwek-bwek'/>;
      }
         return (
             <div>

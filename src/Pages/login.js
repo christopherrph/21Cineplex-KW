@@ -11,7 +11,6 @@ import { Redirect } from 'react-router-dom'
 class login extends Component {
 
     state={
-        
     }
 
     componentDidMount(){
@@ -25,12 +24,26 @@ class login extends Component {
         }else{
         Axios.get(`http://localhost:2000/login?username=${username}&password=${password}`) // Get dari akun yang username sm passwordnya sesuai
         .then((res) =>  {
-            console.log(res.data)
             if(res.data.length === 0){
-            alert('Wrong Username or Password')
+              Axios.get(`http://localhost:2000/login?email=${username}&password=${password}`) 
+              .then((res)=>{
+                if(res.data.length === 0){
+                  alert('Wrong Username, Email, or Password')
+                }else{
+                  var usernameaxios = res.data[0].username
+                  localStorage.setItem('username', usernameaxios)
+                  localStorage.setItem('role', res.data[0].role)
+                  localStorage.setItem('id', res.data[0].id)
+                  this.props.signin(usernameaxios, password)
+                  this.setState({ redirect: true })
+                }
+              })
             }else{
-            localStorage.setItem('username', username)
-            this.props.signin(username, password)
+            var usernameaxios = res.data[0].username
+            localStorage.setItem('username', usernameaxios)
+            localStorage.setItem('role', res.data[0].role)
+            localStorage.setItem('id', res.data[0].id)
+            this.props.signin(usernameaxios, password)
             this.setState({ redirect: true })
             } 
         })
@@ -48,8 +61,8 @@ class login extends Component {
                 <div class="form-signin loginform">
                     <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
                     <center>
-                    <label for="inputEmail" class="sr-only">Username</label>
-                    <input type="email" id="inputan" class="form-control" placeholder="Username" ref='username' required/>
+                    <label for="inputEmail" class="sr-only">Username or Email</label>
+                    <input type="text" id="inputan" class="form-control" placeholder="Username or Email" ref='username' required/>
                     <br/>
                     <label for="inputPassword" class="sr-only">Password</label>
                     <input type="password" id="inputan" class="form-control" placeholder="Password" ref='password' required/>
