@@ -47,9 +47,9 @@
       "role": "admin"
     },
     {
-      "username": "user1",
+      "username": "user",
       "email": "user1@gmail.com",
-      "password": "asdf1234",
+      "password": "asd",
       "role": "user",
       "id": 3
     },
@@ -59,6 +59,13 @@
       "password": "asd",
       "role": "user",
       "id": 4
+    },
+    {
+      "username": "ujian",
+      "password": "asdasdasd5",
+      "email": "ujian@gmail.com",
+      "role": "user",
+      "id": 5
     }
   ],
   "products": [
@@ -98,23 +105,15 @@
       "booked": [
         [
           0,
-          0
+          6
         ],
         [
           0,
-          1
+          7
         ],
         [
           0,
-          2
-        ],
-        [
-          0,
-          9
-        ],
-        [
-          0,
-          10
+          8
         ]
       ],
       "id": 1
@@ -135,12 +134,12 @@
       ],
       "booked": [
         [
-          3,
-          5
+          0,
+          7
         ],
         [
-          3,
-          6
+          0,
+          8
         ]
       ],
       "image": "https://media.21cineplex.com/webcontent/gallery/pictures/157423720057093_287x421.jpg"
@@ -201,20 +200,52 @@
     {
       "booked": [
         [
-          1,
-          5
+          0,
+          0
         ],
         [
-          1,
-          6
+          0,
+          1
         ],
         [
-          1,
-          7
+          0,
+          9
+        ],
+        [
+          0,
+          10
+        ],
+        [
+          0,
+          11
         ],
         [
           1,
           8
+        ],
+        [
+          1,
+          9
+        ],
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          2,
+          9
         ]
       ],
       "name": "Frozen II",
@@ -249,16 +280,24 @@
       ],
       "booked": [
         [
-          1,
-          7
+          0,
+          5
+        ],
+        [
+          0,
+          6
         ],
         [
           1,
-          8
+          13
         ],
         [
           1,
-          9
+          14
+        ],
+        [
+          1,
+          12
         ]
       ],
       "image": "https://media.21cineplex.com/webcontent/gallery/pictures/15743294977296_287x421.jpg"
@@ -279,7 +318,24 @@
         "Christian Bale",
         "Jon Bernthal"
       ],
-      "booked": [],
+      "booked": [
+        [
+          0,
+          9
+        ],
+        [
+          0,
+          10
+        ],
+        [
+          0,
+          7
+        ],
+        [
+          0,
+          8
+        ]
+      ],
       "image": "https://media.21cineplex.com/webcontent/gallery/pictures/1572858859730_287x421.jpg"
     },
     {
@@ -298,16 +354,21 @@
         " LaKeith Stanfield",
         " Chris Evans"
       ],
-      "booked": [],
+      "booked": [
+        [
+          1,
+          9
+        ]
+      ],
       "id": 9
     }
   ],
   "transaction": [
     {
-      "username": "lian",
-      "movies": "Jumanji: The Next Level",
-      "ticket_amount": 3,
-      "totalprice": 150000,
+      "username": "Chris",
+      "movies": "Frozen II",
+      "ticket_amount": 2,
+      "totalprice": 100000,
       "seat": [
         [
           0,
@@ -316,46 +377,40 @@
         [
           0,
           1
-        ],
-        [
-          0,
-          2
         ]
       ],
-      "status": "Unpaid",
+      "orderdate": "18/12/2019",
+      "status": "Paid",
       "id": 1
     },
     {
       "username": "Chris",
-      "movies": "Frozen II",
-      "ticket_amount": 4,
-      "totalprice": 200000,
+      "movies": "Jumanji: The Next Level",
+      "ticket_amount": 3,
+      "totalprice": 150000,
       "seat": [
         [
-          1,
-          5
-        ],
-        [
-          1,
+          0,
           6
         ],
         [
-          1,
+          0,
           7
         ],
         [
-          1,
+          0,
           8
         ]
       ],
+      "orderdate": "18/12/2019",
       "status": "Paid",
       "id": 2
     },
     {
-      "username": "Chris",
-      "movies": "Jumanji: The Next Level",
-      "ticket_amount": 2,
-      "totalprice": 100000,
+      "username": "lian",
+      "movies": "Frozen II",
+      "ticket_amount": 3,
+      "totalprice": 150000,
       "seat": [
         [
           0,
@@ -364,21 +419,41 @@
         [
           0,
           10
+        ],
+        [
+          0,
+          11
         ]
       ],
+      "orderdate": "18/12/2019",
       "status": "Paid",
       "id": 3
     },
     {
-      "username": "Chris",
-      "movies": "Primal",
-      "ticket_amount": 3,
-      "totalprice": 150000,
+      "username": "lian",
+      "movies": "The Good Liar",
+      "ticket_amount": 2,
+      "totalprice": 100000,
       "seat": [
         [
-          1,
+          0,
           7
         ],
+        [
+          0,
+          8
+        ]
+      ],
+      "orderdate": "18/12/2019",
+      "status": "Paid",
+      "id": 4
+    },
+    {
+      "username": "ujian",
+      "movies": "Frozen II",
+      "ticket_amount": 2,
+      "totalprice": 100000,
+      "seat": [
         [
           1,
           8
@@ -388,26 +463,166 @@
           9
         ]
       ],
+      "orderdate": "19/12/2019",
       "status": "Paid",
-      "id": 4
+      "id": 5
     },
     {
-      "username": "lian",
-      "movies": "The Good Liar",
+      "username": "ujian",
+      "movies": "Primal",
       "ticket_amount": 2,
       "totalprice": 100000,
       "seat": [
         [
-          3,
+          0,
           5
         ],
         [
-          3,
+          0,
           6
         ]
       ],
-      "status": "Unpaid",
-      "id": 5
+      "orderdate": "19/12/2019",
+      "status": "Paid",
+      "id": 6
+    },
+    {
+      "username": "lian",
+      "movies": "Knives Out",
+      "ticket_amount": 1,
+      "totalprice": 50000,
+      "seat": [
+        [
+          1,
+          9
+        ]
+      ],
+      "orderdate": "19/12/2019",
+      "status": "Paid",
+      "id": 7
+    },
+    {
+      "username": "user",
+      "movies": "Frozen II",
+      "ticket_amount": 5,
+      "totalprice": 250000,
+      "seat": [
+        [
+          2,
+          5
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          2,
+          9
+        ]
+      ],
+      "orderdate": "19/12/2019",
+      "status": "Paid",
+      "id": 8
+    },
+    {
+      "username": "user",
+      "movies": "Primal",
+      "ticket_amount": 3,
+      "totalprice": 150000,
+      "seat": [
+        [
+          1,
+          13
+        ],
+        [
+          1,
+          14
+        ],
+        [
+          1,
+          12
+        ]
+      ],
+      "orderdate": "19/12/2019",
+      "status": "Paid",
+      "id": 9
+    },
+    {
+      "username": "user",
+      "movies": "Ford V Ferrari",
+      "ticket_amount": 4,
+      "totalprice": 200000,
+      "seat": [
+        [
+          0,
+          9
+        ],
+        [
+          0,
+          10
+        ],
+        [
+          0,
+          7
+        ],
+        [
+          0,
+          8
+        ]
+      ],
+      "orderdate": "19/12/2019",
+      "status": "Paid",
+      "id": 10
+    }
+  ],
+  "feedback": [
+    {
+      "email": "chris@gmail.com",
+      "feedback": "bagoes",
+      "id": 1
+    },
+    {
+      "email": "beats@gmail.com",
+      "feedback": "aplikasi berjalan dengan baik",
+      "id": 2
+    }
+  ],
+  "review": [
+    {
+      "name": "Chris",
+      "review": "Filmnya bagus, Pemerannya cantik. SUKAK!!!",
+      "star": 5,
+      "movie": 6,
+      "id": 1
+    },
+    {
+      "name": "lian",
+      "review": "Elsanya cantik!! aaaaaa fanboying abis aku :3",
+      "star": 4,
+      "movie": 6,
+      "id": 2
+    },
+    {
+      "name": "user",
+      "review": "WAAAAA MANTAP",
+      "star": 5,
+      "movie": 6,
+      "id": 3
+    },
+    {
+      "name": "lian",
+      "review": "Kurang suka sama endingnya dah",
+      "star": 3,
+      "movie": 2,
+      "id": 4
     }
   ]
 }
